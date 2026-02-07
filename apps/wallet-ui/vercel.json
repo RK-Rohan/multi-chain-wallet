@@ -1,6 +1,6 @@
 {
   "buildCommand": "npm run build",
-  "outputDirectory": "dist/wallet-ui",
+  "outputDirectory": "dist/wallet-ui/browser",
   "rewrites": [
     {
       "source": "/(.*)",
