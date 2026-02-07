@@ -1,0 +1,41 @@
+<div class="page">
+  <header class="hero">
+    <div class="badge">Single Mnemonic</div>
+    <h1>Multi-Chain Wallet Viewer</h1>
+    <p class="subtitle">BTC Testnet, ETH Sepolia, and TRON Nile from one deterministic seed.</p>
+
+    <div class="actions">
+      <button class="primary" (click)="generate()" [disabled]="loading()">
+        {{ loading() ? 'Generating...' : 'Generate addresses' }}
+      </button>
+      <span class="status" *ngIf="!loading() && data()">Updated just now</span>
+    </div>
+  </header>
+
+  <p *ngIf="error()" class="error">{{ error() }}</p>
+
+  <section *ngIf="data() as wallet" class="grid">
+    <article class="card">
+      <h2>Bitcoin</h2>
+      <p class="meta">Network: {{ wallet.addresses.bitcoin.network }}</p>
+      <p class="meta">Path: {{ wallet.addresses.bitcoin.path }}</p>
+      <code>{{ wallet.addresses.bitcoin.address }}</code>
+    </article>
+
+    <article class="card">
+      <h2>Ethereum</h2>
+      <p class="meta">Network: {{ wallet.addresses.ethereum.network }}</p>
+      <p class="meta">Path: {{ wallet.addresses.ethereum.path }}</p>
+      <code>{{ wallet.addresses.ethereum.address }}</code>
+    </article>
+
+    <article class="card">
+      <h2>TRON</h2>
+      <p class="meta">Network: {{ wallet.addresses.tron.network }}</p>
+      <p class="meta">Path: {{ wallet.addresses.tron.path }}</p>
+      <code>{{ wallet.addresses.tron.address }}</code>
+    </article>
+  </section>
+
+  <p class="note">No mnemonics or private keys are sent to the browser.</p>
+</div>
