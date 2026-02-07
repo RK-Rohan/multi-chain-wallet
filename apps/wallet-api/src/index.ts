@@ -4,9 +4,27 @@ import { deriveAddresses, generateMnemonic } from "./wallet.js";
 import type { WalletResponse } from "./types.js";
 
 const app = express();
+
+const defaultOrigins = ["http://localhost:4200"];
+const corsOrigins = (process.env.CORS_ORIGINS ?? "")
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+const allowlist = corsOrigins.length > 0 ? corsOrigins : defaultOrigins;
+
 app.use(
   cors({
-    origin: "http://localhost:4200"
+    origin: (origin, callback) => {
+      if (!origin) {
+        callback(null, true);
+        return;
+      }
+      if (allowlist.includes(origin)) {
+        callback(null, true);
+        return;
+      }
+      callback(new Error("Not allowed by CORS"));
+    }
   })
 );
 app.use(express.json());

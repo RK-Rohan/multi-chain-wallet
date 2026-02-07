@@ -90,3 +90,20 @@ curl http://localhost:3000/wallet
 
 - The API generates a new mnemonic by default and does not expose it unless explicitly enabled for local evaluation.
 - No on-chain broadcasts, faucets, or storage are included.
+## Frontend environment configuration
+
+The Angular app reads the API base URL at build time using a small script.
+
+Set `API_BASE_URL` before `npm start` or `npm run build`:
+
+```powershell
+# Local dev (default if unset)
+$env:API_BASE_URL="http://localhost:3000"
+
+# Production (example)
+$env:API_BASE_URL="https://wallet-api-62zs.onrender.com"
+```
+
+The build script writes `src/environments/environment.ts` and `src/environments/environment.prod.ts`.
+
+If you deploy on Vercel, add `API_BASE_URL` as a project Environment Variable.
